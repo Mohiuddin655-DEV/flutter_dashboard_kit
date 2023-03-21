@@ -1,0 +1,78 @@
+name: flutter_erp_software
+description: ERP Software for Dashboard.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.4 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_lints: ^2.0.1
+
+  # Authentications
+  firebase_core: ^2.4.1
+  firebase_auth: ^4.2.5
+  flutter_facebook_auth: ^5.0.7
+  google_sign_in: ^5.4.4
+  local_auth: ^2.1.3
+
+  #Database Handler
+  shared_preferences: ^2.0.17 # Cache Mode
+  cloud_firestore: ^4.3.1
+  firebase_database: ^10.0.9
+
+  #Data equations
+  equatable: ^2.0.5
+
+  #Permission controller
+  permission_handler: ^10.2.0
+
+  # Dependency Injections
+  get_it: ^7.2.0
+
+  # State management
+  flutter_bloc: ^8.1.2
+
+  # Toast
+  fluttertoast: ^8.1.2
+
+  # SVG Icon loader
+  flutter_svg: ^2.0.0+1
+  intl_phone_field: ^3.1.0
+  pod_player: ^0.1.0
+  connectivity_plus: ^3.0.3
+  firebase_storage: ^11.0.16
+  intl: ^0.17.0
+  badges: ^3.0.2
+  camera: ^0.10.3+2
+  cached_network_image: ^3.2.3
+  lottie: ^1.4.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/svg/
+    - assets/images/
+    - assets/icons/
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+
