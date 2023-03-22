@@ -15,6 +15,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
+    return const DashboardScreen();
     return Scaffold(
       backgroundColor: DashboardConst.pageBackground,
       appBar: AppBar(
@@ -26,7 +27,7 @@ class _DashboardPageState extends State<DashboardPage> {
           statusBarColor: DashboardConst.pageBackground,
         ),
       ),
-      body: const DashboardBody(),
+      body: const DashboardBodyB(),
     );
   }
 }

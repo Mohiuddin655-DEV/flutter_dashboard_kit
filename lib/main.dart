@@ -1,7 +1,8 @@
+import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_erp_software/core/constants/api_info.dart';
-import 'package:flutter_erp_software/feature/presentation/page/auth/sign_in/auth_sign_in_page.dart';
 import 'package:flutter_erp_software/feature/presentation/page/dashboard/page.dart';
 
 import 'core/constants/app_info.dart';
@@ -27,6 +28,12 @@ class Application extends StatelessWidget {
       title: AppInfo.name,
       initialRoute: DashboardPage.route,
       onGenerateRoute: OnGenerateRoute.route,
+      scrollBehavior: ScrollConfiguration.of(context).copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+        },
+      ),
     );
   }
 }

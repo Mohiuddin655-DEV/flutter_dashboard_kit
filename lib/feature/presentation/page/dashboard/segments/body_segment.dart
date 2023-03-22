@@ -5,10 +5,8 @@ class BodySegment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        color: Colors.green.shade100,
-      ),
+    return Container(
+      color: Colors.green.shade100,
     );
   }
 }
