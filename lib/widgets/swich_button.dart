@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_erp_software/widgets/view.dart';
+
+import 'view.dart';
 
 class SwitchButton extends StatefulWidget {
   final SwitchController? controller;

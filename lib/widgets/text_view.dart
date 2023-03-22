@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_erp_software/widgets/view.dart';
+
+import 'view.dart';
 
 class TextView extends StatefulWidget {
   final TextViewController? controller;

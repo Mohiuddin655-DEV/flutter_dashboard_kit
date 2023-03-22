@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_erp_software/widgets/image_button.dart';
 
 import '../utils/configurations/device_config.dart';
 import '../utils/configurations/size_config.dart';
-import 'widget_wrapper.dart';
+import 'image_button.dart';
 
 typedef SectionBuilder = Widget Function(SizeConfig config);
 
@@ -350,7 +350,7 @@ class _SectionState extends State<_Section> {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetWrapper(
+    return _WidgetWrapper(
       wrapper: (Size size) {
         config = SizeConfig.of(context, size: size);
       },
@@ -361,5 +361,42 @@ class _SectionState extends State<_Section> {
         child: widget.builder?.call(config),
       ),
     );
+  }
+}
+
+class _WidgetWrapper extends SingleChildRenderObjectWidget {
+  final Function(Size size) wrapper;
+
+  const _WidgetWrapper({
+    Key? key,
+    required this.wrapper,
+    super.child,
+  }) : super(key: key);
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return _ObjectWrapper(wrapper);
+  }
+}
+
+class _ObjectWrapper extends RenderProxyBox {
+  final Function(Size size) wrapper;
+
+  Size? ox;
+
+  _ObjectWrapper(this.wrapper);
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    try {
+      Size? nx = child?.size;
+      if (nx != null && ox != nx) {
+        ox = nx;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          wrapper(nx);
+        });
+      }
+    } catch (_) {}
   }
 }
