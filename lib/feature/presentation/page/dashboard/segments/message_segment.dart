@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 
-class ReportSegment extends StatelessWidget {
-  const ReportSegment({Key? key}) : super(key: key);
+class SideBarSegment extends StatelessWidget {
+  const SideBarSegment({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      color: Colors.blue.shade100,
+      height: double.infinity,
+      alignment: Alignment.center,
+      color: Colors.blue.shade50,
+      child: const Text(
+        "SIDE BAR",
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 24,
+        ),
+      ),
     );
   }
 }

@@ -37,7 +37,7 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
       report: DashboardReport(
         builder: (config) {
-          return const ReportSegment();
+          return const SideBarSegment();
         },
       ),
     );
