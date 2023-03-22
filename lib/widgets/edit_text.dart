@@ -308,7 +308,6 @@ class _Drawable extends StatelessWidget {
           inactive: Colors.grey,
         );
     final drawable = icon.detect(focused);
-    print("${color.detect(focused)}");
     return Container(
       margin: padding,
       width: size,

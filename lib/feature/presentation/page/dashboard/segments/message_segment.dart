@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MessageSegment extends StatelessWidget {
-  const MessageSegment({Key? key}) : super(key: key);
+class ReportSegment extends StatelessWidget {
+  const ReportSegment({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

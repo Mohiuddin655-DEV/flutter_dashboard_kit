@@ -15,7 +15,7 @@ class HeaderSegment extends StatelessWidget {
       alignment: Alignment.center,
       height: 54,
       color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.only(right: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

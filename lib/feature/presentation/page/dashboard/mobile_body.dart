@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../widgets/dashboard_layout.dart';
+import '../../../../widgets/dashboard.dart';
 import '../../../../widgets/responsive_layout.dart';
 import 'segments/body_segment.dart';
 import 'segments/menu_segment.dart';
@@ -20,7 +20,7 @@ class MobileBody extends StatelessWidget {
       ),
       menu: DashboardMenu(
         builder: (config) {
-          return const CategorySegment();
+          return const MenuSegment();
         },
       ),
       body: DashboardBody(

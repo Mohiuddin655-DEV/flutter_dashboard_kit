@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'body.dart';
+import '../../../../widgets/dashboard.dart';
+import 'segments/body_segment.dart';
+import 'segments/header_segment.dart';
+import 'segments/menu_segment.dart';
+import 'segments/message_segment.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String route = "home_page";
@@ -15,19 +18,28 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    return const DashboardScreen();
-    return Scaffold(
-      backgroundColor: DashboardConst.pageBackground,
-      appBar: AppBar(
-        backgroundColor: DashboardConst.pageBackground,
-        toolbarHeight: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarColor: DashboardConst.pageBackground,
-        ),
+    return Dashboard(
+      background: Colors.white,
+      header: DashboardHeader(
+        builder: (config) {
+          return const HeaderSegment();
+        },
       ),
-      body: const DashboardBodyB(),
+      menu: DashboardMenu(
+        builder: (config) {
+          return const MenuSegment();
+        },
+      ),
+      body: DashboardBody(
+        builder: (config) {
+          return const BodySegment();
+        },
+      ),
+      report: DashboardReport(
+        builder: (config) {
+          return const ReportSegment();
+        },
+      ),
     );
   }
 }

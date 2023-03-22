@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../widgets/dashboard_layout.dart';
+import '../../../../widgets/dashboard.dart';
 import 'segments/body_segment.dart';
 import 'segments/menu_segment.dart';
 import 'segments/header_segment.dart';
@@ -19,7 +19,7 @@ class DesktopBody extends StatelessWidget {
       ),
       menu: DashboardMenu(
         builder: (config) {
-          return const CategorySegment();
+          return const MenuSegment();
         },
       ),
       body: DashboardBody(
@@ -29,7 +29,7 @@ class DesktopBody extends StatelessWidget {
       ),
       report: DashboardReport(
         builder: (config) {
-          return const MessageSegment();
+          return const ReportSegment();
         },
       ),
     );
