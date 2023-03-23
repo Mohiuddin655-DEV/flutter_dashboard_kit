@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 
 import 'device_config.dart';
@@ -6,74 +8,71 @@ class SizeConfig {
   final BuildContext context;
   final DeviceConfig config;
   final bool detectScreen;
-  final bool detectVariant;
   final Size? _requireSize;
+  final Size screenSize;
 
-  const SizeConfig._(
+  SizeConfig(
     this.context, [
-    this.detectScreen = false,
-    this.detectVariant = false,
+    this.detectScreen = true,
     this.config = const DeviceConfig(),
     this._requireSize,
-  ]);
+  ]) : screenSize = MediaQuery.of(context).size;
 
   static SizeConfig of(
     BuildContext context, {
-    bool detectScreen = false,
-    bool detectVariant = false,
+    bool detectScreen = true,
     DeviceConfig config = const DeviceConfig(),
     Size? size,
   }) {
-    return SizeConfig._(context, detectScreen, detectVariant, config, size);
+    return SizeConfig(context, detectScreen, config, size);
   }
 
-  Size get size => _requireSize ?? MediaQuery.of(context).size;
+  Size get size => _requireSize ?? screenSize;
 
   double get width => size.width;
 
   double get height => size.height;
 
-  bool get isLandscapeMode => !(isMobile || isTab);
+  double get diagonal => sqrt((width * width) + (height * height));
+
+  double get screenWidth => screenSize.width;
+
+  double get screenHeight => screenSize.height;
+
+  double get screenDiagonal =>
+      sqrt((screenWidth * screenWidth) + (screenHeight * screenHeight));
 
   bool get isMobile =>
-      config.isMobile(width, height); //width <= config.mobile.width;
+      config.isMobile(screenWidth, screenHeight) && screenWidth < 500;
 
-  bool get isTab => config.isTab(
-        width,
-        height,
-      ); //width > config.mobile.width && width <= config.tab.width;
+  bool get isTab =>
+      config.isTab(screenWidth, screenHeight) && screenWidth >= 500;
 
-  bool get isLaptop => config.isLaptop(
-        width,
-        height,
-      ); //width > config.tab.width && width <= config.laptop.width;
+  bool get isLaptop =>
+      config.isLaptop(screenWidth, screenHeight) && screenWidth > 1400;
 
-  bool get isDesktop => config.isDesktop(
-        width,
-        height,
-      ); //width > config.laptop.width && width <= config.desktop.width;
+  bool get isDesktop =>
+      config.isDesktop(screenWidth, screenHeight) && screenWidth > 1800;
 
-  bool get isTV => width > config.desktop.width;
+  bool get isTV => screenWidth > config.desktop.width && screenWidth > 2400;
 
   double get _detectedPixel => detectScreen ? _suggestedPixel : width;
 
   double get _detectedSpace => detectScreen ? _suggestedSpace : width;
 
-  double get _variant {
-    if (detectVariant) {
-      if (isMobile) {
-        return config.mobile.variant;
-      } else if (isTab) {
-        return config.tab.variant;
-      } else if (isLaptop) {
-        return config.laptop.variant;
-      } else if (isDesktop) {
-        return config.desktop.variant;
-      } else {
-        return config.tv.variant;
-      }
+  double get _screenVariant => 4;
+
+  double get _fontVariant {
+    if (isTV) {
+      return 100;
+    } else if (isDesktop) {
+      return 75;
+    } else if (isLaptop) {
+      return 50;
+    } else if (isTab) {
+      return 25;
     } else {
-      return config.mobile.variant;
+      return 0;
     }
   }
 
@@ -105,18 +104,47 @@ class SizeConfig {
     return totalSize / dividedLength;
   }
 
-  double fontSize(double initialSize) => pixel(initialSize);
+  double fontSize(double initialSize) => px(initialSize);
 
-  double pixel(double? initialSize) {
-    final x = (initialSize ?? 0) / _variant;
-    final v = x < 0 ? 1.0 : x;
+  double px(double? initialSize, [bool any = true]) {
+    return value(initialSize, any);
+  }
+
+  double dx(double? initialSize, [bool any = true]) {
+    final x = (initialSize ?? 0) / _screenVariant;
+    final v = !any && x < 0 ? 1.0 : x;
+    return percentageSize(diagonal, v);
+  }
+
+  double pixel(double? initialSize, [bool any = true]) {
+    final x = (initialSize ?? 0) / _screenVariant;
+    final v = !any && x < 0 ? 1.0 : x;
     return percentageSize(_detectedPixel, v);
   }
 
+  double value(double? initialSize, [bool any = true]) {
+    final x = (initialSize ?? 0) * (_fontVariant / 100);
+    final v = !any && x < 0 ? 1.0 : x;
+    final r = ((initialSize ?? 0) + v);
+    return r;
+  }
+
+  double pixelPercentage(double percentage) {
+    if (percentage > 100) return _detectedPixel;
+    if (percentage < 0) return 0;
+    return _detectedPixel * (percentage / 100);
+  }
+
   double space(double? initialSize) {
-    final x = (initialSize ?? 0) / _variant;
+    final x = (initialSize ?? 0) / _screenVariant;
     final v = x < 0 ? 1.0 : x;
     return percentageSize(_detectedSpace, v);
+  }
+
+  double spacePercentage(double percentage) {
+    if (percentage > 100) return _detectedSpace;
+    if (percentage < 0) return 0;
+    return _detectedSpace * (percentage / 100);
   }
 
   double squire({double percentage = 100}) =>

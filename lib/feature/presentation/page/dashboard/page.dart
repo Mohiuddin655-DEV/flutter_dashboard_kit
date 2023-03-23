@@ -4,7 +4,7 @@ import '../../../../widgets/dashboard.dart';
 import 'segments/body_segment.dart';
 import 'segments/header_segment.dart';
 import 'segments/menu_segment.dart';
-import 'segments/message_segment.dart';
+import 'segments/side_bar_segment.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String route = "home_page";
@@ -32,7 +32,9 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
       body: DashboardBody(
         builder: (config) {
-          return const BodySegment();
+          return BodySegment(
+            config: config,
+          );
         },
       ),
       report: DashboardReport(
