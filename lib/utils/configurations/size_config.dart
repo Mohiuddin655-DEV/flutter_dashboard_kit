@@ -178,4 +178,20 @@ class SizeConfig {
 
   double dividedSpaceVertical(double dividedLength) =>
       dividedSize(height, dividedLength);
+
+  DeviceType get deviceType {
+    if (isDesktop || isLaptop) {
+      return DeviceType.desktop;
+    } else if (isTab) {
+      return DeviceType.tab;
+    } else {
+      return DeviceType.mobile;
+    }
+  }
+}
+
+enum DeviceType {
+  mobile,
+  tab,
+  desktop,
 }

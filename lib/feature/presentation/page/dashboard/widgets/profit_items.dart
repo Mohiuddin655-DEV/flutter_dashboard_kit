@@ -17,32 +17,37 @@ class ProfitCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: items.map((e) {
-        return ProfitCard(item: e);
+        return ProfitCard(
+          item: e,
+          config: config,
+        );
       }).toList(),
     );
   }
 }
 
 class ProfitCard extends StatelessWidget {
+  final SizeConfig config;
   final ProfitCardItem item;
 
   const ProfitCard({
     Key? key,
     required this.item,
+    required this.config,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.symmetric(
-          vertical: 12,
-          horizontal: 16,
+        margin: EdgeInsets.all(config.px(12)),
+        padding: EdgeInsets.symmetric(
+          vertical: config.px(12),
+          horizontal: config.px(16),
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(config.px(12)),
         ),
         child: Row(
           children: [
@@ -54,19 +59,18 @@ class ProfitCard extends StatelessWidget {
                     text: item.title,
                     textColor: Colors.grey,
                     fontWeight: FontWeight.w500,
-                    textSize: 12,
+                    textSize: config.px(12),
                   ),
                   TextView(
                     text: "\$ ${item.profit}",
                     textColor: Colors.black,
                     fontWeight: FontWeight.bold,
-                    textSize: 14,
-                    padding: const EdgeInsets.only(top: 8),
+                    textSize: config.px(14),
+                    padding: EdgeInsets.only(top: config.px(8)),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Flex(
-                      direction: Axis.horizontal,
+                    padding: EdgeInsets.only(top: config.px(8)),
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
@@ -74,14 +78,14 @@ class ProfitCard extends StatelessWidget {
                             color: item.isProfit
                                 ? Colors.green.withOpacity(0.05)
                                 : Colors.redAccent.withOpacity(0.05),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(config.px(8)),
                           ),
-                          padding: const EdgeInsets.all(4),
+                          padding: EdgeInsets.all(config.px(4)),
                           child: Icon(
                             item.isProfit
                                 ? Icons.call_made
                                 : Icons.call_received,
-                            size: 14,
+                            size: config.px(14),
                             color:
                                 item.isProfit ? Colors.green : Colors.redAccent,
                           ),
@@ -93,7 +97,7 @@ class ProfitCard extends StatelessWidget {
                               item.isProfit ? Colors.green : Colors.redAccent,
                           fontWeight: FontWeight.bold,
                           textSize: 12,
-                          margin: const EdgeInsets.only(left: 8),
+                          margin: EdgeInsets.only(left: config.px(8)),
                         ),
                       ],
                     ),
@@ -103,7 +107,7 @@ class ProfitCard extends StatelessWidget {
             ),
             Icon(
               Icons.grain_outlined,
-              size: 40,
+              size: config.px(40),
               color: item.isProfit
                   ? Colors.green.withOpacity(0.2)
                   : Colors.redAccent.withOpacity(0.2),

@@ -15,8 +15,6 @@ class BodySegment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size);
-    print(config.size);
     return Container(
       width: double.infinity,
       height: double.infinity,
